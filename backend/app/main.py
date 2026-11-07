@@ -73,6 +73,15 @@ async def rate_limit_and_log_middleware(request: Request, call_next):
     logger.info(f"{request.method} {request.url.path} -> {response.status_code} (client: {client_ip})")
     return response
 
+@app.get("/", include_in_schema=False)
+def root():
+    return {
+        "name": "RightWay API",
+        "status": "online",
+        "docs": "/docs",
+        "health": "/api/health"
+    }
+
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     return JSONResponse(
