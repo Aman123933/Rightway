@@ -23,7 +23,7 @@ Configure these in `backend/.env` (see `backend/.env.example`):
 |---|---|---|
 | `TINYFISH_API_KEY` | API Key for TinyFish Search, Fetch, and Agent | *(Required for live web runs)* |
 | `GEMINI_API_KEY` | Google Gemini API Key | *(Required for draft generation & router fallback)* |
-| `GEMINI_MODEL` | Gemini Model ID | `gemini-2.5-flash` |
+| `GEMINI_MODEL` | Gemini Model ID | `gemini-3.5-flash-lite` |
 | `ALLOWED_ORIGINS` | Comma-separated list of allowed CORS origins | `*` |
 | `ADMIN_TOKEN` | Token for administrative recheck endpoint | `change-this-secret-admin-token` |
 | `UNIVERSITY_NAME` | Default institution name for source discovery | `Vishveshwarya Group of Institutions, Greater Noida` |

@@ -14,7 +14,7 @@ load_dotenv(BACKEND_DIR.parent / ".env")
 
 TINYFISH_API_KEY = os.getenv("TINYFISH_API_KEY", "").strip()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite").strip()
 ALLOWED_ORIGINS_RAW = os.getenv("ALLOWED_ORIGINS", "*").strip()
 ALLOWED_ORIGINS = [o.strip() for o in ALLOWED_ORIGINS_RAW.split(",") if o.strip()] or ["*"]
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "change-this-secret-admin-token").strip()

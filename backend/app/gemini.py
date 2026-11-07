@@ -13,7 +13,7 @@ class RateLimitExceeded(Exception):
 class GeminiClient:
     def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
         self.api_key = api_key or GEMINI_API_KEY
-        self.model = model or GEMINI_MODEL or "gemini-2.5-flash"
+        self.model = model or GEMINI_MODEL or "gemini-3.5-flash-lite"
         # Limiter: 8 requests per minute, 400 per day
         self._minute_timestamps = collections.deque()
         self._day_timestamps = collections.deque()
