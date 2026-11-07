@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: rightway-backend
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      - key: TINYFISH_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: UNIVERSITY_NAME
+        value: "Vishveshwarya Group of Institutions, Greater Noida"

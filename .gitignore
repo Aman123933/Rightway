@@ -1,0 +1,10 @@
+.env
+backend/.env
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+data/cache/
+backend/data/cache/
