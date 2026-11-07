@@ -1,0 +1,8 @@
+event: message
+data: {"type": "STARTED", "run_id": "run_12345"}
+
+event: message
+data: {"type": "PROGRESS", "message": "Extracting grievance regulation details"}
+
+event: message
+data: {"type": "COMPLETE", "run_id": "run_12345", "status": "COMPLETED", "result": {"id": "ugc-grievance-2023", "type": "rule", "category": ["fee_refund", "other"], "title": "UGC Student Grievance Redressal Regulations 2023", "summary": "Every institution shall form a Student Grievance Redressal Committee within 15 days.", "steps": ["Submit complaint to SGRC", "Appeal to Ombudsperson within 15 days"], "time_limits": ["15 days for SGRC resolution", "30 days for Ombudsperson decision"], "documents": ["Application form", "Receipts"], "contacts": [{"label": "UGC Grievance Desk", "phone": "1800-111-656", "email": "grievance@ugc.ac.in", "hours": "9:30 AM - 5:30 PM", "url": "https://ugc.gov.in", "source_id": "ugc-grievance-2023"}], "portal_url": "https://samarth.edu.in", "source_url": "https://thc.nic.in/Central%20Governmental%20Regulations/University%20Grant%20Commission%20%28Redressal%20of%20Grievances%20of%20Students%29%20Regulations,%202023.pdf", "source_quote": "Every institution shall form a Student Grievance Redressal Committee", "fetched_at": "2026-11-07T12:00:00Z", "content_hash": "abc123hash", "status": "current"}}

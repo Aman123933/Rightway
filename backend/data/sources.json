@@ -1,0 +1,34 @@
+[
+  {
+    "url": "https://thc.nic.in/Central%20Governmental%20Regulations/University%20Grant%20Commission%20%28Redressal%20of%20Grievances%20of%20Students%29%20Regulations,%202023.pdf",
+    "category_tag": "other",
+    "query": "UGC Redressal of Grievances of Students Regulations 2023",
+    "domain": "thc.nic.in",
+    "discovered": false,
+    "text_length": 15420
+  },
+  {
+    "url": "https://drrmlims.ac.in/QuickLink/UGC_Regulation",
+    "category_tag": "ragging",
+    "query": "DR RMLIMS UGC Regulation Anti-Ragging Helpline",
+    "domain": "drrmlims.ac.in",
+    "discovered": false,
+    "text_length": 3480
+  },
+  {
+    "url": "https://www.antiragging.in",
+    "category_tag": "ragging",
+    "query": "National Anti-Ragging Helpline UGC",
+    "domain": "antiragging.in",
+    "discovered": false,
+    "text_length": 2850
+  },
+  {
+    "url": "https://telemanas.mohfw.gov.in",
+    "category_tag": "crisis",
+    "query": "Tele-MANAS National Mental Health Helpline",
+    "domain": "telemanas.mohfw.gov.in",
+    "discovered": false,
+    "text_length": 2100
+  }
+]
