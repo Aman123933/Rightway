@@ -2,7 +2,11 @@
   {
     "id": "ugc-sgrc-procedure-2023",
     "type": "procedure",
-    "category": ["other", "fee_refund", "admission"],
+    "category": [
+      "other",
+      "fee_refund",
+      "admission"
+    ],
     "title": "UGC Student Grievance Redressal Committee (SGRC) Procedure",
     "summary": "Students submit grievances regarding fee refunds or administration to the SGRC. The committee must conclude proceedings and send its report within 15 days.",
     "steps": [
@@ -35,12 +39,14 @@
     "source_quote": "The SGRC shall send its report with recommendations, if any, to the competent authority of the institution and a copy thereof to the aggrieved student, within a period of 15 days",
     "fetched_at": "2026-11-07T12:00:00Z",
     "content_hash": "a4f89d3170a4c56891ebc419ec4bfa1e6f18318e47265f6c8d37a1c72688be5d",
-    "status": "current"
+    "status": "changed"
   },
   {
     "id": "ugc-fee-refund-rule-2023",
     "type": "rule",
-    "category": ["fee_refund"],
+    "category": [
+      "fee_refund"
+    ],
     "title": "UGC Mandatory Fee Refund and Non-Retention of Certificates",
     "summary": "Institutions cannot retain original certificates and must process fee refunds for students withdrawing admission in accordance with UGC guidelines.",
     "steps": [
@@ -67,7 +73,9 @@
   {
     "id": "national-antiragging-helpline",
     "type": "emergency",
-    "category": ["ragging"],
+    "category": [
+      "ragging"
+    ],
     "title": "National Anti-Ragging 24x7 Toll Free Helpline",
     "summary": "National 24x7 toll-free helpline and online complaint portal operated under UGC regulations for immediate anti-ragging intervention and rescue.",
     "steps": [
@@ -104,7 +112,10 @@
   {
     "id": "telemanas-crisis-helpline",
     "type": "crisis",
-    "category": ["self_harm", "harassment"],
+    "category": [
+      "self_harm",
+      "harassment"
+    ],
     "title": "Tele-MANAS National Mental Health & Crisis Helpline",
     "summary": "Government of India 24x7 toll-free mental health support providing immediate confidential counseling for distress, anxiety, harassment, or self-harm thoughts.",
     "steps": [
@@ -136,7 +147,12 @@
   {
     "id": "ugc-ombudsperson-appeal",
     "type": "procedure",
-    "category": ["other", "discrimination", "exam_evaluation", "attendance"],
+    "category": [
+      "other",
+      "discrimination",
+      "exam_evaluation",
+      "attendance"
+    ],
     "title": "Appeals to University Ombudsperson",
     "summary": "Any student aggrieved by SGRC decision may appeal to the University Ombudsperson. The Ombudsperson hears both sides and issues an order within 30 days.",
     "steps": [
