@@ -2,7 +2,7 @@
 
 **Hackathon:** Tiny Hacks 2026  
 **Team:** Chill.exe (Anushika, Aman Saini)  
-**Live Demo:** [https://rightway-production.onrender.com](https://rightway-production.onrender.com) *(Placeholder for deployment)*
+**Live Demo:** https://rightway-s7zc.onrender.com
 
 RightWay is an open student rights and grievance navigator designed to eliminate information asymmetry between college students and university administrations. A student describes an issue in plain language (English, Hindi, or Hinglish). RightWay returns:
 1. The applicable official regulatory rule (UGC 2023 regulations, AICTE, or institutional handbook).
