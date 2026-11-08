@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { api } from '../api'
+import { api, setSlowServerListener } from '../api'
 import { ArrowRight, AlertCircle, Loader2 } from 'lucide-react'
 
 const CATEGORIES = [
@@ -23,6 +23,11 @@ export default function Home({ onOpenEmergency }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isWakingUp, setIsWakingUp] = useState(false)
+
+  useEffect(() => {
+    setSlowServerListener((isSlow) => setIsWakingUp(isSlow))
+    return () => setSlowServerListener(null)
+  }, [])
 
   const maxChars = 1000
   const charCount = message.length
@@ -142,7 +147,7 @@ export default function Home({ onOpenEmergency }) {
         {/* Server waking up notice */}
         {isWakingUp && (
           <div className="mb-4 p-3 bg-blue-50 border border-blue-200 text-blue-800 text-xs rounded">
-            The server may be waking up. This can take up to a minute.
+            Waking the server (about 30 seconds)... Please wait while the instance starts up.
           </div>
         )}
 

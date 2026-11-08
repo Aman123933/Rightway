@@ -25,6 +25,24 @@ def process_ask_request(
     records = library_records if library_records is not None else load_library()
     message = req.message
 
+    # Handle empty or whitespace-only messages early
+    if not message or not message.strip():
+        return AskResponse(
+            safety=SafetyInfo(triggered=False, categories=[], message="", contacts=[]),
+            category=req.category or "other",
+            not_found=True,
+            answer=AnswerPayload(
+                summary="",
+                office=None,
+                steps=[],
+                time_limits=[],
+                documents=[],
+                portal_url=None
+            ),
+            sources=[],
+            fallback="Contact your institution's grievance cell."
+        )
+
     # 1. Safety Gate Check (zero AI)
     safety_check = check_safety(message)
     if safety_check["triggered"]:

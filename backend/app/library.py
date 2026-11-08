@@ -22,11 +22,41 @@ def load_library(filepath: Optional[Path] = None) -> List[Dict[str, Any]]:
         return []
 
 def save_library(records: List[Dict[str, Any]], filepath: Optional[Path] = None) -> None:
+    import time
     path = filepath or LIBRARY_FILE
     temp_path = path.with_suffix(".tmp")
     with open(temp_path, "w", encoding="utf-8") as f:
         json.dump(records, f, indent=2, ensure_ascii=False)
-    temp_path.replace(path)
+
+    # On Windows / OneDrive, atomic replace can transiently encounter WinError 5
+    for attempt in range(5):
+        try:
+            temp_path.replace(path)
+            return
+        except PermissionError:
+            time.sleep(0.05 * (attempt + 1))
+
+    # Fallback if replace is locked by OS/sync agent
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(records, f, indent=2, ensure_ascii=False)
+        if temp_path.exists():
+            temp_path.unlink(missing_ok=True)
+    except Exception as e:
+        logger.error(f"Failed to save library: {e}")
+
+STOP_WORDS = {
+    "the", "is", "at", "which", "on", "a", "an", "and", "or", "for", "in", "to",
+    "of", "by", "with", "from", "as", "what", "how", "when", "where", "who", "whom",
+    "why", "can", "could", "would", "should", "will", "i", "my", "me", "we", "our",
+    "you", "your", "he", "she", "it", "they", "them", "their", "this", "that", "these",
+    "those", "am", "are", "was", "were", "be", "been", "being", "have", "has", "had",
+    "do", "does", "did", "but", "if", "so", "than", "too", "very", "just", "about",
+    "into", "through", "during", "before", "after", "above", "below", "up", "down",
+    "off", "over", "under", "again", "further", "then", "once", "here", "there", "all",
+    "any", "both", "each", "few", "more", "most", "some", "such", "no", "nor", "not",
+    "only", "own", "same", "tell", "give", "please", "help"
+}
 
 def tokenize(text: str) -> List[str]:
     norm = normalize_text(text)
@@ -38,43 +68,56 @@ def rank_records(query: str, category: Optional[str] = None, records: Optional[L
     Filters/boosts by category and weights field matches.
     """
     all_records = records if records is not None else load_library()
-    query_tokens = tokenize(query)
+    raw_tokens = tokenize(query)
+    # Filter out common stop words to prevent false-positive matches on words like 'the'
+    query_tokens = [t for t in raw_tokens if t not in STOP_WORDS]
+
+    if not query_tokens:
+        return []
 
     scored: List[Tuple[Dict[str, Any], float]] = []
 
     for r in all_records:
         rec_categories = r.get("category", [])
-        score = 0.0
+        text_score = 0.0
 
-        # Category match boost
-        if category and category in rec_categories:
-            score += 5.0
-        elif category and category not in rec_categories and category != "other":
-            # If a specific category was requested and this record doesn't match, reduce score
-            score -= 2.0
+        title_tokens = set(tokenize(r.get("title", "")))
+        summary_tokens = set(tokenize(r.get("summary", "")))
+        detail_tokens = set(tokenize(" ".join(r.get("steps", []) + r.get("documents", []))))
 
         # Title match
-        title_norm = normalize_text(r.get("title", ""))
         for qt in query_tokens:
-            if qt in title_norm:
-                score += 3.0
+            if qt in title_tokens:
+                text_score += 3.0
 
         # Summary match
-        summary_norm = normalize_text(r.get("summary", ""))
         for qt in query_tokens:
-            if qt in summary_norm:
-                score += 1.5
+            if qt in summary_tokens:
+                text_score += 1.5
 
         # Steps & documents match
-        combined_details = normalize_text(" ".join(r.get("steps", []) + r.get("documents", [])))
         for qt in query_tokens:
-            if qt in combined_details:
-                score += 1.0
+            if qt in detail_tokens:
+                text_score += 1.0
 
         # If query matches category names directly
         for cat in rec_categories:
             if cat in query_tokens:
-                score += 2.0
+                text_score += 2.0
+
+        score = text_score
+        # Category boost only applies if text has relevant matches
+        if text_score > 0:
+            if category and category in rec_categories:
+                if category != "other":
+                    score += 4.0
+                else:
+                    score += 0.5
+            elif category and category not in rec_categories and category != "other":
+                score -= 2.0
+        elif category and category != "other" and category in rec_categories:
+            # If user explicitly chose a specific category (not other) but query is generic
+            score += 1.5
 
         if score > 0:
             scored.append((r, score))

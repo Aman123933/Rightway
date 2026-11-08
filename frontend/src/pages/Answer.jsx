@@ -99,7 +99,7 @@ export default function Answer({ onOpenEmergency }) {
 
         {wakingUp && (
           <div className="mt-2 text-xs text-blue-800 bg-blue-50 border border-blue-200 p-2.5 rounded">
-            The server may be waking up. This can take up to a minute.
+            Waking the server (about 30 seconds)... Please wait while the instance starts up.
           </div>
         )}
       </div>

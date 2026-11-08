@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: rightway
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: TINYFISH_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash-lite
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: UNIVERSITY_NAME
+        value: "Vishveshwarya Group of Institutions, Greater Noida"
