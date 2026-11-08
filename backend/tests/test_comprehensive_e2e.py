@@ -25,10 +25,14 @@ class TestComprehensiveE2E:
     def test_root_endpoint_status(self):
         resp = client.get("/")
         assert resp.status_code == 200
-        data = resp.json()
-        assert data["status"] == "online"
-        assert "/docs" in data["docs"]
-        assert "/api/health" in data["health"]
+        # When frontend/dist is built, SPA index.html is served; otherwise returns JSON
+        if resp.headers.get("content-type", "").startswith("application/json"):
+            data = resp.json()
+            assert data["status"] == "online"
+            assert "/docs" in data["docs"]
+            assert "/api/health" in data["health"]
+        else:
+            assert "<html" in resp.text.lower() or "root" in resp.text
 
     def test_health_endpoint_comprehensive(self):
         resp = client.get("/api/health")

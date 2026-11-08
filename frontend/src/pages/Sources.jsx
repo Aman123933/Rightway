@@ -25,7 +25,7 @@ export default function Sources() {
     setError(null)
     try {
       const data = await api.getLibrary()
-      setRecords(data || [])
+      setRecords(Array.isArray(data) ? data : [])
     } catch (err) {
       setError(err.message || 'Failed to load official sources library.')
     } finally {
@@ -98,7 +98,8 @@ export default function Sources() {
     { label: 'Other', value: 'other' },
   ]
 
-  const filteredRecords = records.filter((r) => {
+  const safeRecords = Array.isArray(records) ? records : []
+  const filteredRecords = safeRecords.filter((r) => {
     if (selectedCategory === 'all') return true
     const cats = Array.isArray(r.category) ? r.category : [r.category]
     return cats.includes(selectedCategory)
@@ -185,7 +186,7 @@ export default function Sources() {
       {/* Library Top Bar: Count & Category Filter */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
         <div className="text-sm font-medium text-gray-700" data-testid="library-count">
-          Showing {filteredRecords.length} of {records.length} verified sources
+          Showing {filteredRecords.length} of {safeRecords.length} verified sources
         </div>
 
         <div className="flex items-center gap-2">
@@ -223,7 +224,7 @@ export default function Sources() {
       )}
 
       {/* Empty library state */}
-      {!loading && !error && records.length === 0 && (
+      {!loading && !error && safeRecords.length === 0 && (
         <div className="bg-white border border-gray-200 rounded p-12 text-center">
           <p className="text-sm text-gray-600 font-medium">
             No sources loaded yet. Ask the team to run the library build.
@@ -232,7 +233,7 @@ export default function Sources() {
       )}
 
       {/* Non-empty records view */}
-      {!loading && !error && records.length > 0 && (
+      {!loading && !error && safeRecords.length > 0 && (
         <>
           {/* Desktop Table View */}
           <div className="hidden md:block bg-white border border-gray-200 rounded overflow-hidden shadow-sm">

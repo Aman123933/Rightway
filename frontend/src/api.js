@@ -36,12 +36,21 @@ export async function request(path, options = {}) {
 
       const contentType = response.headers.get('content-type') || ''
       const isJson = contentType.includes('application/json')
+
+      if (!isJson && response.ok) {
+        throw new Error(
+          'Backend returned a non-JSON response. Please verify that FastAPI is running on http://127.0.0.1:8000.'
+        )
+      }
+
       const data = isJson ? await response.json() : await response.text()
 
       if (!response.ok) {
         const error = new Error(
-          (isJson && data?.detail)
-            ? (typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail))
+          isJson && data?.detail
+            ? typeof data.detail === 'string'
+              ? data.detail
+              : JSON.stringify(data.detail)
             : `Request failed with status ${response.status}`
         )
         error.status = response.status
